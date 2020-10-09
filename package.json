@@ -1,0 +1,58 @@
+{
+  "name": "mock_user_management_system",
+  "version": "1.0.0",
+  "description": "A mock frontend user management system that allows users to view and manipulate information about other users in the system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --config webpack.js && NODE_ENV=development node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nelsongoh/mock_user_management_system.git"
+  },
+  "keywords": [
+    "user",
+    "management",
+    "system"
+  ],
+  "author": "Nelson Goh Wei Qiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nelsongoh/mock_user_management_system/issues"
+  },
+  "homepage": "https://github.com/nelsongoh/mock_user_management_system#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "axios": "^0.20.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.1",
+    "prop-types": "^15.7.2",
+    "pug": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.10.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
