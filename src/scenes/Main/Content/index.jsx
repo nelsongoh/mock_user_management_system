@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core';
 import UserListTable from '../../../components/UserListTable';
 import NewUserButton from '../../../components/NewUserButton';
@@ -6,6 +6,7 @@ import UserDetailDialog from '../../../components/UserDetailDialog';
 import { StateTypes } from '../../../components/Config/en';
 import UserDetails from '../../../models/UserDetails';
 import FormError from '../../../models/FormError';
+import { retrieveUsers } from '../../../services/api/user';
 
 const Content = () => {
   // The state of the form in the dialog
@@ -30,6 +31,18 @@ const Content = () => {
     setFormError({ ...formErrors, ...updatedFormError });
   };
 
+  // We need to maintain a state for the data retrieved
+  const [userData, setUserData] = useState([]);
+
+  const getLatestUserData = async () => {
+    const users = await retrieveUsers();
+    setUserData(users);
+  };
+
+  useEffect(() => {
+    getLatestUserData();
+  }, []);
+
   return (
     <div>
       <UserDetailDialog
@@ -40,6 +53,7 @@ const Content = () => {
         setFormState={handleFormUpdate}
         formErrorState={formErrors}
         setFormErrorState={handleFormErrorChange}
+        getUserData={getLatestUserData}
       />
       <Grid
         container
@@ -59,6 +73,7 @@ const Content = () => {
             dialogTypeUpdate={handleDialogTypeUpdate}
             setFormState={handleFormUpdate}
             setFormErrorState={handleFormErrorChange}
+            userData={userData}
           />
         </Grid>
       </Grid>

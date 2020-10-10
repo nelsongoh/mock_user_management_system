@@ -10,20 +10,23 @@ import {
   TextContent, StateTypes, userDetailsObjectKey, formErrorObjectKey,
 } from '../Config/en';
 import UserForm from '../UserForm';
-import { validateUserForm } from '../../services/utils';
+import { validateUserForm, isFormValid } from '../../services/utils';
+import { createUser, updateUser } from '../../services/api/user';
 
 const UserDetailDialog = ({
   isOpen, closeDialog, dialogType, initialFormState, setFormState, formErrorState,
-  setFormErrorState,
+  setFormErrorState, getUserData,
 }) => {
   const classes = useStyles();
 
   let saveBtnText = TextContent.userDetailsDialog.createUserBtn;
   let dialogTitle = TextContent.userDetailsDialog.createUserTitle;
+  let saveFormFunc = createUser;
 
   if (dialogType !== StateTypes.DIALOG.CREATE) {
     saveBtnText = TextContent.userDetailsDialog.updateUserBtn;
     dialogTitle = TextContent.userDetailsDialog.updateUserTitle;
+    saveFormFunc = updateUser;
   }
 
   // Setter functions to update the user details
@@ -32,10 +35,19 @@ const UserDetailDialog = ({
   };
 
   // Wrapper function to validate the form details and update errors (if any)
-  const saveFormData = () => {
+  const saveFormData = async () => {
     try {
       const newErrorState = validateUserForm(initialFormState);
-      setFormErrorState(newErrorState);
+      // If there are no errors, we can save the changes from the data we're making
+      // and retrieve an updated list of the changes
+      if (isFormValid(newErrorState)) {
+        await saveFormFunc(initialFormState);
+        closeDialog();
+        getUserData();
+      } else {
+        // Else we just update the error state
+        setFormErrorState(newErrorState);
+      }
     } catch (e) {
       // Inform the user about an error occurring
       console.log(e);
@@ -101,6 +113,7 @@ UserDetailDialog.propTypes = {
     }),
   }).isRequired,
   setFormErrorState: PropTypes.func.isRequired,
+  getUserData: PropTypes.func.isRequired,
 };
 
 export default UserDetailDialog;

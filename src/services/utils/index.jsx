@@ -144,3 +144,28 @@ export const epochTimeToString = (numSeconds) => {
   const dateObj = new Date(numSeconds * 1000);
   return (`${dateObj.getDate()}/${dateObj.getMonth() + 1}/${dateObj.getFullYear()}`);
 };
+
+/**
+ * Checks if the FormError() object is valid, i.e. If it is error-free or not
+ * @param {FormError} formError a FormError() object
+ * @returns True if the form is error-free, false otherwise.
+ */
+export const isFormValid = (formError) => {
+  if (formError[formErrorObjectKey.firstName].error !== false) {
+    return false;
+  }
+
+  if (formError[formErrorObjectKey.lastName].error !== false) {
+    return false;
+  }
+
+  if (formError[formErrorObjectKey.email].error !== false) {
+    return false;
+  }
+
+  if (formError[formErrorObjectKey.dobStr].error !== false) {
+    return false;
+  }
+
+  return true;
+};

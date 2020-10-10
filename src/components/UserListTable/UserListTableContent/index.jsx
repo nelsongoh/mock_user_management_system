@@ -15,7 +15,7 @@ const UserListTableContent = ({
   // and open the dialog
   const openUpdateDialog = (row) => {
     setFormState(UserDetails(
-      row.firstName, row.lastName, row.email, row.dob, epochTimeToString(row.dob),
+      row.id, row.firstName, row.lastName, row.email, row.dob, epochTimeToString(row.dob),
     ));
     setFormErrorState(FormError());
     dialogTypeUpdate();

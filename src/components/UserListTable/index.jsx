@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Table, TableContainer, TablePagination } from '@material-ui/core';
 import UserListTableHeader from './UserListTableHeader';
 import UserListTableContent from './UserListTableContent';
+import { JSONObjectKey } from '../Config/en';
 import useStyles from './styles';
 
 const UserListTable = ({
-  openDialog, dialogTypeUpdate, setFormState, setFormErrorState,
+  openDialog, dialogTypeUpdate, setFormState, setFormErrorState, userData,
 }) => {
   const classes = useStyles();
   const ROWS_PER_PAGE = [10, 25, 50, 100];
@@ -22,23 +23,7 @@ const UserListTable = ({
     setPage(0);
   };
 
-  const mockDataGenerator = (numRows) => {
-    const output = [];
-    for (let i = 0; i < numRows; i += 1) {
-      output.push({
-        id: i,
-        firstName: 'John',
-        lastName: 'Doe',
-        email: 'john.doe@gmail.com',
-        dob: 1595493789,
-      });
-    }
-    return output;
-  };
-
-  const mockData = mockDataGenerator(102);
-
-  const rowsToDisplay = mockData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+  const rowsToDisplay = userData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
   return (
     <div id="user_list_table">
@@ -57,7 +42,7 @@ const UserListTable = ({
       <TablePagination
         rowsPerPageOptions={ROWS_PER_PAGE}
         component="div"
-        count={mockData.length}
+        count={userData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={changePageNum}
@@ -72,6 +57,15 @@ UserListTable.propTypes = {
   dialogTypeUpdate: PropTypes.func.isRequired,
   setFormState: PropTypes.func.isRequired,
   setFormErrorState: PropTypes.func.isRequired,
+  userData: PropTypes.arrayOf(
+    PropTypes.shape({
+      [JSONObjectKey.user.id]: PropTypes.number,
+      [JSONObjectKey.user.firstName]: PropTypes.string,
+      [JSONObjectKey.user.lastName]: PropTypes.string,
+      [JSONObjectKey.user.email]: PropTypes.string,
+      [JSONObjectKey.user.dob]: PropTypes.number,
+    }),
+  ).isRequired,
 };
 
 export default UserListTable;

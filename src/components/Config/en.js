@@ -38,7 +38,18 @@ export const StateTypes = {
   },
 };
 
+export const JSONObjectKey = {
+  user: {
+    id: 'id',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    email: 'email',
+    dob: 'dob',
+  },
+};
+
 export const userDetailsObjectKey = {
+  id: 'id',
   firstName: 'firstName',
   lastName: 'lastName',
   email: 'email',
