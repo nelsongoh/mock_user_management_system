@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Table, TableContainer, TablePagination } from '@material-ui/core';
 import UserListTableHeader from './UserListTableHeader';
 import UserListTableContent from './UserListTableContent';
 import useStyles from './styles';
 
-const UserListTable = () => {
+const UserListTable = ({
+  openDialog, dialogTypeUpdate, setFormState, setFormErrorState,
+}) => {
   const classes = useStyles();
   const ROWS_PER_PAGE = [10, 25, 50, 100];
   const [page, setPage] = useState(0);
@@ -27,7 +30,7 @@ const UserListTable = () => {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john.doe@gmail.com',
-        dob: '01/02/03',
+        dob: 1595493789,
       });
     }
     return output;
@@ -42,7 +45,13 @@ const UserListTable = () => {
       <TableContainer className={classes.table}>
         <Table stickyHeader>
           <UserListTableHeader />
-          <UserListTableContent pageDataArray={rowsToDisplay} />
+          <UserListTableContent
+            pageDataArray={rowsToDisplay}
+            openDialog={openDialog}
+            dialogTypeUpdate={dialogTypeUpdate}
+            setFormState={setFormState}
+            setFormErrorState={setFormErrorState}
+          />
         </Table>
       </TableContainer>
       <TablePagination
@@ -56,6 +65,13 @@ const UserListTable = () => {
       />
     </div>
   );
+};
+
+UserListTable.propTypes = {
+  openDialog: PropTypes.func.isRequired,
+  dialogTypeUpdate: PropTypes.func.isRequired,
+  setFormState: PropTypes.func.isRequired,
+  setFormErrorState: PropTypes.func.isRequired,
 };
 
 export default UserListTable;

@@ -1,13 +1,15 @@
-function UserDetails(
+const UserDetails = (
   firstName = '',
   lastName = '',
   email = '',
-  dob = '',
-) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.email = email;
-  this.dob = dob;
-}
+  dob = -1,
+  dobStr = '',
+) => ({
+  firstName,
+  lastName,
+  email,
+  dob,
+  dobStr,
+});
 
 export default UserDetails;

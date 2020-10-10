@@ -1,23 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Grid } from '@material-ui/core';
-import UserDetails from '../../models/UserDetails';
-import { validateUserDetailsObject } from '../../services/validation';
-import { TextContent, userDetailsObjectKey } from '../Config/en';
+import { TextContent, userDetailsObjectKey, formErrorObjectKey } from '../Config/en';
 import useStyles from './styles';
 
-const UserDetailForm = ({ providedUserDetails }) => {
-  // Determine the user detail state for the form
-  const userDetailState = validateUserDetailsObject(providedUserDetails);
-
-  // Set the state of the user's form details
-  const [userDetails, setUserDetails] = useState(userDetailState);
-
-  // Setter functions to update the user details
-  const handleTextValueChange = (prop) => (event) => {
-    setUserDetails({ ...userDetails, [prop]: event.target.value });
-  };
-
+const UserForm = ({ formDetails, updateDetails, formErrors }) => {
   const classes = useStyles();
 
   return (
@@ -41,12 +28,12 @@ const UserDetailForm = ({ providedUserDetails }) => {
               label={TextContent.userDetailsForm.firstName}
               variant="outlined"
               color="primary"
-              onChange={handleTextValueChange(userDetailsObjectKey.firstName)}
-              value={userDetails.firstName}
+              onChange={updateDetails(userDetailsObjectKey.firstName)}
+              value={formDetails[userDetailsObjectKey.firstName]}
               className={classes.textFieldHalfWidth}
               size="small"
-              // error={}
-              // helperText={}
+              error={formErrors[formErrorObjectKey.firstName].error}
+              helperText={formErrors[formErrorObjectKey.firstName].errorText}
             />
           </Grid>
           <Grid item>
@@ -56,12 +43,12 @@ const UserDetailForm = ({ providedUserDetails }) => {
               label={TextContent.userDetailsForm.lastName}
               variant="outlined"
               color="primary"
-              onChange={handleTextValueChange(userDetailsObjectKey.lastName)}
-              value={userDetails.lastName}
+              onChange={updateDetails(userDetailsObjectKey.lastName)}
+              value={formDetails[userDetailsObjectKey.lastName]}
               className={classes.textFieldHalfWidth}
               size="small"
-              // error={}
-              // helperText={}
+              error={formErrors[formErrorObjectKey.lastName].error}
+              helperText={formErrors[formErrorObjectKey.lastName].errorText}
             />
           </Grid>
         </Grid>
@@ -73,12 +60,12 @@ const UserDetailForm = ({ providedUserDetails }) => {
           label={TextContent.userDetailsForm.email}
           variant="outlined"
           color="primary"
-          onChange={handleTextValueChange(userDetailsObjectKey.email)}
-          value={userDetails.email}
+          onChange={updateDetails(userDetailsObjectKey.email)}
+          value={formDetails[userDetailsObjectKey.email]}
           className={classes.textFieldFullWidth}
           size="small"
-          // error={}
-          // helperText={}
+          error={formErrors[formErrorObjectKey.email].error}
+          helperText={formErrors[formErrorObjectKey.email].errorText}
         />
       </Grid>
       <Grid item>
@@ -88,24 +75,45 @@ const UserDetailForm = ({ providedUserDetails }) => {
           label={TextContent.userDetailsForm.dob}
           variant="outlined"
           color="primary"
-          onChange={handleTextValueChange(userDetailsObjectKey.dob)}
-          value={userDetails.dob}
+          onChange={updateDetails(userDetailsObjectKey.dobStr)}
+          value={formDetails[userDetailsObjectKey.dobStr]}
           className={classes.textFieldFullWidth}
           size="small"
-          // error={}
-          // helperText={}
+          error={formErrors[formErrorObjectKey.dobStr].error}
+          helperText={formErrors[formErrorObjectKey.dobStr].errorText}
         />
       </Grid>
     </Grid>
   );
 };
 
-UserDetailForm.defaultProps = {
-  providedUserDetails: null,
+UserForm.propTypes = {
+  formDetails: PropTypes.shape({
+    [userDetailsObjectKey.firstName]: PropTypes.string,
+    [userDetailsObjectKey.lastName]: PropTypes.string,
+    [userDetailsObjectKey.email]: PropTypes.string,
+    [userDetailsObjectKey.dob]: PropTypes.number,
+    [userDetailsObjectKey.dobStr]: PropTypes.string,
+  }).isRequired,
+  updateDetails: PropTypes.func.isRequired,
+  formErrors: PropTypes.shape({
+    [formErrorObjectKey.firstName]: PropTypes.shape({
+      error: PropTypes.bool,
+      errorText: PropTypes.string,
+    }),
+    [formErrorObjectKey.lastName]: PropTypes.shape({
+      error: PropTypes.bool,
+      errorText: PropTypes.string,
+    }),
+    [formErrorObjectKey.email]: PropTypes.shape({
+      error: PropTypes.bool,
+      errorText: PropTypes.string,
+    }),
+    [formErrorObjectKey.dobStr]: PropTypes.shape({
+      error: PropTypes.bool,
+      errorText: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
-UserDetailForm.propTypes = {
-  providedUserDetails: PropTypes.instanceOf(UserDetails),
-};
-
-export default UserDetailForm;
+export default UserForm;
