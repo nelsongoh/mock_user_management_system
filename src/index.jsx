@@ -23,6 +23,10 @@ const colorTheme = createMuiTheme({
       main: '#00C5CE',
       contrastText: '#FFFFFF',
     },
+    warning: {
+      main: '#FF9800',
+      contrastText: '#FFFFFF',
+    },
   },
 });
 

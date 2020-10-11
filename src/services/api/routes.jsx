@@ -3,7 +3,7 @@ const routes = {
     create: '/api/user',
     retrieve: '/api/user',
     update: '/api/user',
-    delete: '/api/user',
+    delete: '/api/user/',
   },
 };
 

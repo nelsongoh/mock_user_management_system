@@ -30,7 +30,10 @@ export const slashStringToEpochTime = (dateStr) => {
   }
 
   const yr = Number(delimitedStrArr[2]);
-  if (yr > new Date().getFullYear() || yr < Constants.MIN_DOB_YEAR) {
+  if (yr < 100
+    || Number.isNaN(mth)
+    || !Number.isInteger(mth)
+  ) {
     return -1;
   }
 
@@ -39,7 +42,18 @@ export const slashStringToEpochTime = (dateStr) => {
 
 // Internal implementation of validating a date of birth string
 const isDobValid = (dobStr) => {
-  if (slashStringToEpochTime(dobStr) === -1) {
+  const dateObj = slashStringToEpochTime(dobStr);
+  // If the date itself is an invalid format
+  if (dateObj === -1) {
+    return false;
+  }
+
+  // If the date is valid, but is beyond today's date
+  // or less than our defined minimum date
+  if (
+    dateObj > Math.trunc(new Date().getTime() / 1000)
+    || dateObj < Math.trunc(Constants.MIN_DOB.getTime() / 1000)
+  ) {
     return false;
   }
 
@@ -138,7 +152,7 @@ export const validateUserForm = (userDetails) => {
  * @param {number} numSeconds The number of seconds elapsed since epoch time
  */
 export const epochTimeToString = (numSeconds) => {
-  if (numSeconds < 0 || !Number.isInteger(numSeconds)) {
+  if (!Number.isInteger(numSeconds)) {
     return '';
   }
   const dateObj = new Date(numSeconds * 1000);

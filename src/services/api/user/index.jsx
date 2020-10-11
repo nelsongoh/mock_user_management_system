@@ -45,8 +45,10 @@ export const updateUser = async (userDetails) => {
     });
 };
 
-export const deleteUser = async (userDetails) => {
-  await axios.delete(routes.users.delete, userDetails)
+export const deleteUser = async (userId) => {
+  // NOTE TO SELF: Specifically for DELETE with request bodies, the 'data' keyword needs
+  // to be there
+  await axios.delete(routes.users.delete + userId)
     .catch((error) => {
       // We just print the error out now for simplicity
       // otherwise we will attempt a retry mechanism (where applicable,

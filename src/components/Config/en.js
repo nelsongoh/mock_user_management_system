@@ -11,6 +11,7 @@ export const TextContent = {
     updateUserTitle: 'Update Existing User',
     updateUserBtn: 'Update',
     cancelBtn: 'Cancel',
+    deleteUserBtn: 'Delete',
   },
 
   userDetailsForm: {
@@ -69,7 +70,7 @@ export const ErrorText = {
     firstName: 'First name must not be empty.',
     lastName: 'Last name must not be empty.',
     email: 'Email must be of valid format.',
-    dob: 'The date of birth must be in DD/MM/YYYY format',
+    dob: 'The date of birth must be in DD/MM/YYYY format, and cannot be after today\'s date',
   },
 
   invalidUserDetails: {
@@ -84,5 +85,5 @@ export const Regex = {
 
 export const Constants = {
   // Defined as 1875 due as the oldest recorded ever living person was born in 1875
-  MIN_DOB_YEAR: 1875,
+  MIN_DOB: new Date(1875, 0, 1),
 };

@@ -6,12 +6,13 @@ import {
 import useStyles from './styles';
 import DialogSaveButton from './DialogSaveButton';
 import DialogCancelButton from './DialogCancelButton';
+import DialogDeleteButton from './DialogDeleteButton';
 import {
   TextContent, StateTypes, userDetailsObjectKey, formErrorObjectKey,
 } from '../Config/en';
 import UserForm from '../UserForm';
 import { validateUserForm, isFormValid } from '../../services/utils';
-import { createUser, updateUser } from '../../services/api/user';
+import { createUser, updateUser, deleteUser } from '../../services/api/user';
 
 const UserDetailDialog = ({
   isOpen, closeDialog, dialogType, initialFormState, setFormState, formErrorState,
@@ -22,11 +23,26 @@ const UserDetailDialog = ({
   let saveBtnText = TextContent.userDetailsDialog.createUserBtn;
   let dialogTitle = TextContent.userDetailsDialog.createUserTitle;
   let saveFormFunc = createUser;
+  let deleteBtn = null;
 
   if (dialogType !== StateTypes.DIALOG.CREATE) {
     saveBtnText = TextContent.userDetailsDialog.updateUserBtn;
     dialogTitle = TextContent.userDetailsDialog.updateUserTitle;
     saveFormFunc = updateUser;
+
+    // Wrapper function to delete the user and refresh the data view
+    const deleteUserData = async () => {
+      await deleteUser(initialFormState[userDetailsObjectKey.id]);
+      closeDialog();
+      getUserData();
+    };
+
+    deleteBtn = (
+      <DialogDeleteButton
+        onClick={deleteUserData}
+        btnText={TextContent.userDetailsDialog.deleteUserBtn}
+      />
+    );
   }
 
   // Setter functions to update the user details
@@ -71,6 +87,7 @@ const UserDetailDialog = ({
           />
         </DialogContent>
         <DialogActions>
+          {deleteBtn}
           <DialogCancelButton
             onClick={closeDialog}
             btnText={TextContent.userDetailsDialog.cancelBtn}

@@ -43,15 +43,15 @@ exports.retrieveUsers = async (req, res) => {
   res.status(200).send({ allUsers: listOfUsers });
 };
 
-exports.deleteUser = async (req, res) => {
-  const userIdToDelete = req.body.userDetails.id;
-  listOfUsers.splice(userIdToDelete, 1);
-  res.sendStatus(204);
-};
-
 exports.updateUser = async (req, res) => {
   const { userDetails } = req.body;
   const userIdToUpdate = userDetails.id;
   listOfUsers[userIdToUpdate - 1] = userDetails;
+  res.sendStatus(204);
+};
+
+exports.deleteUser = async (req, res) => {
+  const userIdToDelete = req.params.id;
+  listOfUsers.splice(userIdToDelete - 1, 1);
   res.sendStatus(204);
 };
