@@ -5,8 +5,6 @@ const helmet = require('helmet');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const webpack = require('webpack');
-const config = require('../webpack');
 
 // Check what ports have been set for the current environment variable
 // Else, use the default port of 8080 (for Dev) or 80 (for Production)
@@ -37,21 +35,24 @@ const cspDirectives = {
     fontSrc: ["'self'", 'https://fonts.gstatic.com'],
     scriptSrc: [
       "'self'",
-      'https://www.gstatic.com/firebasejs/',
     ],
     connectSrc: ["'self'", 'https://www.googleapis.com'],
   },
 };
 
-const compiler = webpack(config);
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack');
+  const config = require('../webpack');
+  const compiler = webpack(config);
 
-// We use the configuration for webpack
-// via the webpack dev middleware so that we can use our custom
-// Express server configuration (i.e. server.js) alongside it
-app.use(require('webpack-dev-middleware')(compiler, {
-  /* Any other webpack middleware options */
-  // publicPath: devConfig.output.publicPath
-}));
+  // We use the configuration for webpack
+  // via the webpack dev middleware so that we can use our custom
+  // Express server configuration (i.e. server.js) alongside it
+  app.use(require('webpack-dev-middleware')(compiler, {
+    /* Any other webpack middleware options */
+    // publicPath: devConfig.output.publicPath
+  }));
+}
 
 // This line generates a nonce for use in Material UI's JSS in CSS
 app.use((req, res, next) => {
@@ -70,7 +71,7 @@ app.set('view engine', 'pug');
 
 // This line tells Express to use the /dist directory when fulfilling requests
 // for static assets, like our bundle.js
-app.use(express.static(path.resolve(__dirname, './dist/')));
+app.use(express.static(path.resolve(__dirname, '../dist/bundle')));
 
 // This line renders the HTML file with the styleNonce variable
 app.get('/*', (req, res) => {
