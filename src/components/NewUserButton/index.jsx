@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
-import { TextContent } from '../Config/en';
+import { TextContent } from '../../config/en';
 import UserDetails from '../../models/UserDetails';
 import FormError from '../../models/FormError';
 

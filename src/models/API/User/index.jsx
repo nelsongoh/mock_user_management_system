@@ -1,4 +1,4 @@
-import { JSONObjectKey, userDetailsObjectKey } from '../../../components/Config/en';
+import { JSONObjectKey, userDetailsObjectKey } from '../../../config/en';
 import { slashStringToEpochTime } from '../../../services/utils';
 
 const SingleUser = (id, firstName, lastName, email, dob) => ({

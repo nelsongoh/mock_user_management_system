@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const webpack = require('webpack');
+const config = require('../webpack');
 
 // Check what ports have been set for the current environment variable
 // Else, use the default port of 8080 (for Dev) or 80 (for Production)
@@ -41,9 +43,6 @@ const cspDirectives = {
   },
 };
 
-const webpack = require('webpack');
-const config = require('../webpack');
-
 const compiler = webpack(config);
 
 // We use the configuration for webpack
@@ -53,10 +52,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
   /* Any other webpack middleware options */
   // publicPath: devConfig.output.publicPath
 }));
-
-// And set additional script source directives for the Content Security Policy
-// (This allows us to use React Hot Loader)
-cspDirectives.directives.scriptSrc.push("'unsafe-eval'");
 
 // This line generates a nonce for use in Material UI's JSS in CSS
 app.use((req, res, next) => {
@@ -70,7 +65,7 @@ app.use(
 );
 
 // Enable Express to utilize the Pug templating engine
-app.set('views', './views');
+app.set('views', './server/views');
 app.set('view engine', 'pug');
 
 // This line tells Express to use the /dist directory when fulfilling requests

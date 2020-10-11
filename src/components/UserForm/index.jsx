@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TextField, Grid } from '@material-ui/core';
-import { TextContent, userDetailsObjectKey, formErrorObjectKey } from '../Config/en';
+import { TextContent, userDetailsObjectKey, formErrorObjectKey } from '../../config/en';
 import useStyles from './styles';
 
 const UserForm = ({ formDetails, updateDetails, formErrors }) => {

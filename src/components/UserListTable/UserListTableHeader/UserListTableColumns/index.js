@@ -1,4 +1,4 @@
-import { TableColumnHeaders } from '../../../Config/en';
+import { TableColumnHeaders } from '../../../../config/en';
 import classes from './styles';
 
 const UserListTableColumns = () => [

@@ -1,7 +1,7 @@
 import FormError from '../../models/FormError';
 import {
   ErrorText, Regex, formErrorObjectKey, userDetailsObjectKey, Constants,
-} from '../../components/Config/en';
+} from '../../config/en';
 
 /**
  * Converts a date string (in DD/MM/YYYY format) to epoch time

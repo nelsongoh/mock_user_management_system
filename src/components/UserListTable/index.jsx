@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table, TableContainer, TablePagination } from '@material-ui/core';
 import UserListTableHeader from './UserListTableHeader';
 import UserListTableContent from './UserListTableContent';
-import { JSONObjectKey } from '../Config/en';
+import { JSONObjectKey } from '../../config/en';
 import useStyles from './styles';
 
 const UserListTable = ({

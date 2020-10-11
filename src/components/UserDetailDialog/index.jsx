@@ -9,7 +9,7 @@ import DialogCancelButton from './DialogCancelButton';
 import DialogDeleteButton from './DialogDeleteButton';
 import {
   TextContent, StateTypes, userDetailsObjectKey, formErrorObjectKey,
-} from '../Config/en';
+} from '../../config/en';
 import UserForm from '../UserForm';
 import { validateUserForm, isFormValid } from '../../services/utils';
 import { createUser, updateUser, deleteUser } from '../../services/api/user';

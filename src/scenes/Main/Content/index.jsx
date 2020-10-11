@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import UserListTable from '../../../components/UserListTable';
 import NewUserButton from '../../../components/NewUserButton';
 import UserDetailDialog from '../../../components/UserDetailDialog';
-import { StateTypes } from '../../../components/Config/en';
+import { StateTypes } from '../../../config/en';
 import UserDetails from '../../../models/UserDetails';
 import FormError from '../../../models/FormError';
 import { retrieveUsers } from '../../../services/api/user';

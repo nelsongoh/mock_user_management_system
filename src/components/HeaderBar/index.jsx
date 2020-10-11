@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import useStyles from './styles';
-import { TextContent } from '../Config/en';
+import { TextContent } from '../../config/en';
 
 const HeaderBar = () => {
   const classes = useStyles();
